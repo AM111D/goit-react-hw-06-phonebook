@@ -1,4 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getContacts } from './Contacts/selectors';
+import { useSelector } from 'react-redux';
 
 const initialState = {
   contacts: [
@@ -9,16 +11,37 @@ const initialState = {
   ],
   filter: '',
 };
+// const contactsItems = useSelector(getContacts);
 
 export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    add: (state, action) => {
-      state.contacts.push(action.payload);
+    addContact: {
+      reducer: (state, action) => {
+        const checkNameContacts = state.contacts.find(
+          contact => contact.name === action.payload.name
+        );
+        if (checkNameContacts) {
+          console.log(
+            'Контакт с таким именем уже существует:',
+            checkNameContacts
+          );
+          return;
+        }
+        state.contacts.push(action.payload);
+      },
+      prepare: payload => ({ payload }), // Возвращаем объект с полем "payload"
     },
+    deleteContacts: {
+      reducer: (state, action) => {
+        state.contacts = state.contacts.filter(el => el.id !== action.payload);
+        // state.splice(index, 1);
+      },
+    },
+    prepare: payload => ({ payload }), // Возвращаем объект с полем "payload"
   },
 });
 
-export const { add } = contactsSlice.actions;
+export const { addContact, deleteContacts } = contactsSlice.actions;
 export const contactsReducer = contactsSlice.reducer;

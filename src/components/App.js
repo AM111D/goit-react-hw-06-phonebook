@@ -5,6 +5,8 @@ import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getContactsTotalItems } from './store/Contacts/selectors';
+import { contactsSlice, deleteContacts } from './store/contactsSlice';
+import { filterSlice, upDate } from './store/Contacts/filterSlice';
 
 function App() {
   const dispatch = useDispatch();
@@ -13,7 +15,9 @@ function App() {
 
   const contactsTotal = useSelector(getContactsTotalItems);
   const contactsItems = useSelector(getContacts);
-
+  // useEffect(() => {
+  //   console.log(contactsSlice.actions.addContacts());
+  // }, []);
   const addContact = (name, number) => {
     let contactId = nanoid();
     const currentContacts = [...contacts];
@@ -33,14 +37,17 @@ function App() {
   };
 
   const deleteContact = id => {
-    const currentContacts = [...contacts];
-    const index = currentContacts.findIndex(person => person.id === id);
-    currentContacts.splice(index, 1);
-    setContacts(currentContacts);
+    dispatch(deleteContacts(id));
+    // const currentContacts = [...contacts];
+    // const index = currentContacts.findIndex(person => person.id === id);
+    // currentContacts.splice(index, 1);
+    // setContacts(currentContacts);
   };
 
   const handleFilter = e => {
-    setFilter(e.target.value);
+    console.log(e.target.value);
+    // setFilter(e.target.value);
+    dispatch(upDate(e.target.value));
   };
 
   const filteredList = () => {
@@ -66,7 +73,7 @@ function App() {
       <h1>Phonebook</h1>
       <ContactForm addContact={addContact} deleteContact={deleteContact} />
       <h1>Contacts</h1>
-      <Filter change={handleFilter} value={filter} />
+      <Filter />
       <ContactList list={filteredList()} deleteContact={deleteContact} />
     </div>
   );

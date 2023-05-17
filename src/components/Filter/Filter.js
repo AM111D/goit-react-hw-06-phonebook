@@ -1,16 +1,26 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import css from './filter.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFilterValue } from 'components/store/Contacts/selectors';
+import { upDate } from 'components/store/Contacts/filterSlice';
 
-const Filter = props => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector(getFilterValue);
+
+  const changeFilter = e => {
+    dispatch(upDate(e.currentTarget.value));
+  };
+
   return (
     <div className={css.filter}>
       <h3>Find contacts by name:</h3>
       <input
         className={css.filterInput}
         id="filter"
-        value={props.filter}
-        onChange={props.change}
+        value={filter}
+        onChange={changeFilter}
         type="text"
         name="filter"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -21,9 +31,9 @@ const Filter = props => {
   );
 };
 
-Filter.propTypes = {
-  value: propTypes.string.isRequired,
-  onChange: propTypes.func,
-};
+// Filter.propTypes = {
+//   value: propTypes.string.isRequired,
+//   onChange: propTypes.func,
+// };
 
 export default Filter;
