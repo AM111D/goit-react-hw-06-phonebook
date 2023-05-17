@@ -2,11 +2,16 @@ import React from 'react';
 import ContactListElement from 'components/ContactListElement/ContactListElement';
 import propTypes from 'prop-types';
 import css from './ContactList.module.css';
+import { useSelector, useDispatch } from 'react-redux';
 
 const ContactList = props => {
+  const addContact = useSelector(state => {
+    return state.contacts.contacts;
+  });
+  console.log(addContact);
   return (
     <ul className={css.contactlist}>
-      {props.list.map(contact => (
+      {addContact.map(contact => (
         <ContactListElement
           key={contact.id}
           name={contact.name}

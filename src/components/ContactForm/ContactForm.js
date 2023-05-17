@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import css from './ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { add } from 'components/redux/phonebookSlice';
 
 function ContactForm(props) {
+  const dispatch = useDispatch();
+
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const id = nanoid();
+  const contacts = { id, name, number };
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.addContact(name, number);
+    dispatch(add(contacts));
+    // props.addContact(name, number);
     setName('');
     setNumber('');
   };
@@ -30,6 +38,7 @@ function ContactForm(props) {
   };
 
   return (
+    // <form className={css.contactForm} onSubmit={handleSubmit}>
     <form className={css.contactForm} onSubmit={handleSubmit}>
       <label htmlFor="name">Name</label>
       <input
