@@ -1,4 +1,4 @@
-export const getContacts = state => state.contacts;
+export const getContacts = state => state.contacts.contacts;
 
 export const getContactsTotalItems = state => state.total_items;
 

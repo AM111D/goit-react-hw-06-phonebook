@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { toursReducer } from './tours/toursSlice';
+import { contactsReducer } from './contactsSlice';
 
 export const store = configureStore({
   reducer: {
-    tours: contactsReducer,
+    contacts: contactsReducer,
   },
 });

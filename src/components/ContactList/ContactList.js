@@ -2,11 +2,15 @@ import React from 'react';
 import ContactListElement from 'components/ContactListElement/ContactListElement';
 import propTypes from 'prop-types';
 import css from './ContactList.module.css';
+import { useSelector } from 'react-redux';
+import { getContacts } from 'components/store/Contacts/selectors';
 
 const ContactList = props => {
+  const contactsItems = useSelector(getContacts);
+  console.log(contactsItems);
   return (
     <ul className={css.contactlist}>
-      {props.list.map(contact => (
+      {contactsItems.map(contact => (
         <ContactListElement
           key={contact.id}
           name={contact.name}
