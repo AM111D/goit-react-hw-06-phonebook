@@ -1,5 +1,5 @@
 export const getContacts = state => state.contacts;
-console.log(getContacts);
+
+export const getContactsTotalItems = state => state.total_items;
 
 export const getFilterValue = state => state.filter;
-console.log(getFilterValue);

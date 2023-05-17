@@ -3,10 +3,16 @@ import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, getContactsTotalItems } from './store/Contacts/selectors';
 
 function App() {
+  const dispatch = useDispatch();
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
+
+  const contactsTotal = useSelector(getContactsTotalItems);
+  const contactsItems = useSelector(getContacts);
 
   const addContact = (name, number) => {
     let contactId = nanoid();
