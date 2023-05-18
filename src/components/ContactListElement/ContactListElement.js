@@ -7,31 +7,31 @@ import {
   getFilterValue,
 } from 'components/store/Contacts/selectors';
 import { upDate } from 'components/store/Contacts/filterSlice';
+import { deleteContacts } from 'components/store/contactsSlice';
 
-const ContactListElement = ({ handleDeleteContact }) => {
+const ContactListElement = () => {
   const dispatch = useDispatch();
   const filter = useSelector(getFilterValue); // Получите значение фильтра из хранилища Redux
   const contacts = useSelector(getContacts);
 
-  const filteredList = () => {
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase().trim())
-    );
-  };
+  // const filteredList = () => {
+  //   console.log(contacts);
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(String(filter).toLowerCase().trim())
+  //   );
+  // };
 
-  useEffect(() => {
-    const filteredContactsRedux = filteredList(); // Вызовите функцию filteredList для фильтрации контактов
-    // Обновите состояние Redux с отфильтрованным списком контактов
-    dispatch(upDate(filteredContactsRedux));
-  }, [filter, dispatch]);
+  const handleDeleteContact = id => {
+    dispatch(deleteContacts(id));
+  };
 
   const filteredContacts = useSelector(getContacts);
   // Получите отфильтрованный список контактов из хранилища Redux
-
+  console.log('КОНТАКТЫ', contacts);
   return (
-    <li className={css.contactElement}>
-      {filteredContacts.map(contact => (
-        <div key={contact.id}>
+    <>
+      {contacts.map(contact => (
+        <li className={css.contactElement} key={contact.id}>
           <p>{contact.name}:</p>
           <p>{contact.number}</p>
           <button
@@ -41,9 +41,9 @@ const ContactListElement = ({ handleDeleteContact }) => {
           >
             Delete
           </button>
-        </div>
+        </li>
       ))}
-    </li>
+    </>
   );
 };
 

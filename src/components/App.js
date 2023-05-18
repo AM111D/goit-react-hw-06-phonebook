@@ -5,7 +5,7 @@ import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getFilterValue } from './store/Contacts/selectors';
-import { deleteContacts, addContact } from './store/contactsSlice';
+import { addContact } from './store/contactsSlice';
 import { upDate } from './store/Contacts/filterSlice';
 
 function App() {
@@ -13,18 +13,18 @@ function App() {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilterValue);
 
-  useEffect(() => {
-    dispatch(upDate('')); //  фильтр инициализируется пустым значением
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(upDate('')); //  фильтр инициализируется пустым значением
+  // }, [dispatch]);
 
   const handleAddContact = (name, number) => {
     const id = nanoid();
     dispatch(addContact({ id, name, number }));
   };
 
-  const handleDeleteContact = id => {
-    dispatch(deleteContacts(id));
-  };
+  // const handleDeleteContact = id => {
+  //   dispatch(deleteContacts(id));
+  // };
 
   // const filteredList = () => {
   //   return contacts.filter(contact =>
@@ -38,7 +38,7 @@ function App() {
       <ContactForm addContact={handleAddContact} />
       <h1>Contacts</h1>
       <Filter />
-      <ContactList deleteContact={handleDeleteContact} />
+      <ContactList />
     </div>
   );
 }
