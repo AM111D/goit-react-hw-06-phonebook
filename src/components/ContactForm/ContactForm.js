@@ -10,12 +10,12 @@ function ContactForm(props) {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const id = nanoid();
-  const contacts = { id, name, number };
+  // const id = nanoid();
+  // const contacts = { id, name, number };
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(addContact(contacts));
+    dispatch(addContact({ id: nanoid(), name, number }));
     // props.addContact(name, number);
     setName('');
     setNumber('');

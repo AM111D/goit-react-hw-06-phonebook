@@ -4,77 +4,41 @@ import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getContactsTotalItems } from './store/Contacts/selectors';
-import { contactsSlice, deleteContacts } from './store/contactsSlice';
-import { filterSlice, upDate } from './store/Contacts/filterSlice';
+import { getContacts, getFilterValue } from './store/Contacts/selectors';
+import { deleteContacts, addContact } from './store/contactsSlice';
+import { upDate } from './store/Contacts/filterSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getFilterValue);
 
-  const contactsTotal = useSelector(getContactsTotalItems);
-  const contactsItems = useSelector(getContacts);
-  // useEffect(() => {
-  //   console.log(contactsSlice.actions.addContacts());
-  // }, []);
-  const addContact = (name, number) => {
-    let contactId = nanoid();
-    const currentContacts = [...contacts];
-    const names = currentContacts.map(contact => contact.name);
-    console.log(names);
+  useEffect(() => {
+    dispatch(upDate('')); //  фильтр инициализируется пустым значением
+  }, [dispatch]);
 
-    if (!names.find(el => el === name)) {
-      setContacts([
-        ...currentContacts,
-        { id: contactId, name: name, number: number },
-      ]);
-
-      // setContacts(contacts);
-    } else {
-      alert(`${name} is already in contacts`);
-    }
+  const handleAddContact = (name, number) => {
+    const id = nanoid();
+    dispatch(addContact({ id, name, number }));
   };
 
-  const deleteContact = id => {
+  const handleDeleteContact = id => {
     dispatch(deleteContacts(id));
-    // const currentContacts = [...contacts];
-    // const index = currentContacts.findIndex(person => person.id === id);
-    // currentContacts.splice(index, 1);
-    // setContacts(currentContacts);
   };
 
-  const handleFilter = e => {
-    console.log(e.target.value);
-    // setFilter(e.target.value);
-    dispatch(upDate(e.target.value));
-  };
-
-  const filteredList = () => {
-    return contacts.filter(
-      contact =>
-        filter === '' ||
-        contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
-
-  useEffect(() => {
-    console.log('Mouting phase: same when componentDidMount runs');
-    const storageContacts = JSON.parse(localStorage.getItem('contacts')) || [];
-    setContacts(storageContacts);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // const filteredList = () => {
+  //   return contacts.filter(contact =>
+  //     contact.name.toLowerCase().includes(filter.toLowerCase().trim())
+  //   );
+  // };
 
   return (
     <div style={{ marginLeft: '50px' }}>
       <h1>Phonebook</h1>
-      <ContactForm addContact={addContact} deleteContact={deleteContact} />
+      <ContactForm addContact={handleAddContact} />
       <h1>Contacts</h1>
       <Filter />
-      <ContactList list={filteredList()} deleteContact={deleteContact} />
+      <ContactList deleteContact={handleDeleteContact} />
     </div>
   );
 }

@@ -3,14 +3,18 @@ import propTypes from 'prop-types';
 import css from './filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilterValue } from 'components/store/Contacts/selectors';
-import { upDate } from 'components/store/Contacts/filterSlice';
+import { upDate } from '../store/Contacts/filterSlice';
 
 const Filter = () => {
   const dispatch = useDispatch();
+
   const filter = useSelector(getFilterValue);
+  // console.log(filter);
 
   const changeFilter = e => {
-    dispatch(upDate(e.currentTarget.value));
+    const newFilterValue = e.target.value;
+    console.log(newFilterValue);
+    dispatch(upDate(newFilterValue));
   };
 
   return (

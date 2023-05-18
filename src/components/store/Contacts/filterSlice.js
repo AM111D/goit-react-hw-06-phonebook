@@ -6,11 +6,10 @@ export const filterSlice = createSlice({
   reducers: {
     upDate: {
       reducer: (state, action) => {
-        console.log(action.payload);
-        state = action.payload;
+        return action.payload;
       },
     },
-    prepare: payload => ({ payload }), // Возвращаем объект с полем "payload"
+    prepare: payload => ({ payload }),
   },
 });
 
