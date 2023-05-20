@@ -1,5 +1,4 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -47,17 +46,6 @@ const ContactList = () => {
       })}
     </ul>
   );
-};
-
-ContactList.propTypes = {
-  list: propTypes.arrayOf(
-    propTypes.shape({
-      key: propTypes.string,
-      name: propTypes.string.isRequired,
-      number: propTypes.string.isRequired,
-      deleteContact: propTypes.func,
-    })
-  ),
 };
 
 export default ContactList;

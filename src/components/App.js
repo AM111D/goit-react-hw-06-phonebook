@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import { nanoid } from 'nanoid';
-import { useDispatch, useSelector } from 'react-redux';
-import { getContacts, getFilterValue } from './store/Contacts/selectors';
+import { useDispatch } from 'react-redux';
+
 import { addContact } from './store/contactsSlice';
-import { upDate } from './store/Contacts/filterSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const filter = useSelector(getFilterValue);
 
   const handleAddContact = (name, number) => {
     const id = nanoid();

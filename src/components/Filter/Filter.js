@@ -1,5 +1,4 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import css from './filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilterValue } from 'components/store/Contacts/selectors';
