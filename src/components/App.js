@@ -13,25 +13,10 @@ function App() {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getFilterValue);
 
-  // useEffect(() => {
-  //   dispatch(upDate('')); //  фильтр инициализируется пустым значением
-  // }, [dispatch]);
-
   const handleAddContact = (name, number) => {
     const id = nanoid();
     dispatch(addContact({ id, name, number }));
   };
-
-  // const handleDeleteContact = id => {
-  //   dispatch(deleteContacts(id));
-  // };
-
-  // const filteredList = () => {
-  //   return contacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(filter.toLowerCase().trim())
-  //   );
-  // };
-
   return (
     <div style={{ marginLeft: '50px' }}>
       <h1>Phonebook</h1>

@@ -1,5 +1,4 @@
 import React from 'react';
-import ContactListElement from 'components/ContactListElement/ContactListElement';
 import propTypes from 'prop-types';
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,11 +16,6 @@ const ContactList = () => {
 
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
-    console.log(
-      contacts.filter(contact =>
-        contact.name.toLowerCase().includes(normalizedFilter)
-      )
-    );
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedFilter)
     );
@@ -55,15 +49,15 @@ const ContactList = () => {
   );
 };
 
-// ContactList.propTypes = {
-//   list: propTypes.arrayOf(
-//     propTypes.shape({
-//       key: propTypes.string,
-//       name: propTypes.string.isRequired,
-//       number: propTypes.string.isRequired,
-//       deleteContact: propTypes.func,
-//     })
-//   ),
-// };
+ContactList.propTypes = {
+  list: propTypes.arrayOf(
+    propTypes.shape({
+      key: propTypes.string,
+      name: propTypes.string.isRequired,
+      number: propTypes.string.isRequired,
+      deleteContact: propTypes.func,
+    })
+  ),
+};
 
 export default ContactList;

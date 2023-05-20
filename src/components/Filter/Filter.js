@@ -9,7 +9,6 @@ const Filter = () => {
   const dispatch = useDispatch();
 
   const filter = useSelector(getFilterValue);
-  console.log(filter);
 
   const changeFilter = e => {
     const newFilterValue = e.target.value;

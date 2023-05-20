@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getContacts } from './Contacts/selectors';
-import { useSelector } from 'react-redux';
 
 const initialState = {
   contacts: [
@@ -9,9 +7,7 @@ const initialState = {
     { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ],
-  filter: '',
 };
-// const contactsItems = useSelector(getContacts);
 
 export const contactsSlice = createSlice({
   name: 'contacts',
@@ -31,15 +27,14 @@ export const contactsSlice = createSlice({
         }
         state.contacts.push(action.payload);
       },
-      prepare: payload => ({ payload }), // Возвращаем объект с полем "payload"
+      prepare: payload => ({ payload }),
     },
     deleteContacts: {
       reducer: (state, action) => {
         state.contacts = state.contacts.filter(el => el.id !== action.payload);
-        // state.splice(index, 1);
       },
     },
-    prepare: payload => ({ payload }), // Возвращаем объект с полем "payload"
+    prepare: payload => ({ payload }),
   },
 });
 
